@@ -22,6 +22,7 @@ public class Goal {
     private Date targetDate;
     private Double targetAmount;
     private Double amountCurrentlySaved;
+    private Double progress;
 
     public Long getId() {
         return id;
@@ -91,6 +92,14 @@ public class Goal {
         this.amountCurrentlySaved += amount;
     }
 
+    public Double getProgress() {
+        return progress;
+    }
+
+    public void setProgress() {
+        this.progress = this.targetAmount - this.amountCurrentlySaved;
+    }
+
     @Override
     public String toString() {
         return "Goal{" +
@@ -102,6 +111,7 @@ public class Goal {
                 ", targetDate=" + targetDate +
                 ", targetAmount=" + targetAmount +
                 ", amountCurrentlySaved=" + amountCurrentlySaved +
+                ", progress=" + progress +
                 '}';
     }
 }
