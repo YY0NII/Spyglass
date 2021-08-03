@@ -18,6 +18,7 @@ public class GoalService {
     }
 
     public void save(Goal goal) {
+        goal.setProgress();
         goalRepo.save(goal);
     }
 
