@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Button, ButtonGroup, Container, Table } from 'reactstrap';
 import AppNavbar from './AppNavbar';
 import { Link } from 'react-router-dom';
+import logo from './logo.svg';
+
 
 class GoalList extends Component {
 
@@ -45,6 +47,7 @@ class GoalList extends Component {
                 <td>{goal.targetDate}</td>
                 <td>{goal.targetAmount}</td>
                 <td>{goal.amountCurrentlySaved}</td>
+                <td><img src={logo} alt="logo" /></td>
                 <td>
                     <ButtonGroup>
                         <Button size="sm" color="primary" tag={Link} to={"/Goals/" + goal.id}>Edit</Button>
@@ -71,6 +74,7 @@ class GoalList extends Component {
                             <th >Target Date</th>
                             <th >Target Amount</th>
                             <th >Amount Saved</th>
+                            <th >Image</th>
                         </tr>
                         </thead>
                         <tbody>
