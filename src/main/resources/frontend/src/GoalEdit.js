@@ -5,7 +5,7 @@ import AppNavbar from './AppNavbar';
 
 class GoalEdit extends Component {
 
-    emptyGoal = {
+    emptyItem = {
         
         name: '',
         description: '',
@@ -20,7 +20,7 @@ class GoalEdit extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            goal: this.emptyGoal
+            item: this.emptyItem
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);

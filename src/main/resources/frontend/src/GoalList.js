@@ -12,7 +12,7 @@ class GoalList extends Component {
     }
 
     componentDidMount() {
-        fetch('/SpyglassAPI/Goals')
+        fetch('Goals')
             .then(response => response.json())
             .then(data => this.setState({goals: data}));
     }
