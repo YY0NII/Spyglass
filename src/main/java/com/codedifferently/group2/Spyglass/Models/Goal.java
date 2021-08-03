@@ -18,6 +18,7 @@ public class Goal {
     private String name;
     private String description;
     private String image;
+    private Date startDate;
     private Date targetDate;
     private Double targetAmount;
     private Double amountCurrentlySaved;
@@ -52,6 +53,14 @@ public class Goal {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     public Date getTargetDate() {
@@ -89,6 +98,7 @@ public class Goal {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", image='" + image + '\'' +
+                ", startDate=" + startDate +
                 ", targetDate=" + targetDate +
                 ", targetAmount=" + targetAmount +
                 ", amountCurrentlySaved=" + amountCurrentlySaved +
