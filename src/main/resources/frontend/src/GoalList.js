@@ -14,7 +14,7 @@ class GoalList extends Component {
     }
 
     componentDidMount() {
-        fetch('Goals')
+        fetch('/Goals')
             .then(response => response.json())
             .then(data => this.setState({goals: data}));
     }
