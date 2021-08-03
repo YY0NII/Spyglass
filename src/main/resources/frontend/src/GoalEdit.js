@@ -87,6 +87,11 @@ class GoalEdit extends Component {
                                onChange={this.handleChange} autoComplete="targetDate"/>
                     </FormGroup>
                     <FormGroup>
+                        <Label for="targetAmount">Target Amount</Label>
+                        <Input type="text" name="targetAmount" id="targetAmount" value={item.targetAmount || ''}
+                               onChange={this.handleChange} autoComplete="targetAmount"/>
+                    </FormGroup>
+                    <FormGroup>
                         <Label for="amountCurrentlySaved">Amount Saved</Label>
                         <Input type="text" name="amountCurrentlySaved" id="amountCurrentlySaved" value={item.amountCurrentlySaved || ''}
                                onChange={this.handleChange} autoComplete="amountCurrentlySaved"/>
