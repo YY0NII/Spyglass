@@ -17,9 +17,9 @@ public class GoalService {
         this.goalRepo = goalRepo;
     }
 
-    public void save(Goal goal) {
+    public Goal save(Goal goal) {
         goal.setProgress();
-        goalRepo.save(goal);
+        return goalRepo.save(goal);
     }
 
     public List<Goal> findAll() {

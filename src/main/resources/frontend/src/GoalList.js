@@ -43,8 +43,9 @@ class GoalList extends Component {
                 <td>{goal.description}</td>
                 <td>{goal.startDate}</td>
                 <td>{goal.targetDate}</td>
-                <td>{goal.targetAmount}</td>
-                <td>{goal.amountCurrentlySaved}</td>
+                <td>${goal.targetAmount}</td>
+                <td>${goal.amountCurrentlySaved}</td>
+                <td>${goal.progress}</td>
                 <td>
                     <ButtonGroup>
                         <Button size="sm" color="primary" tag={Link} to={"/Goals/" + goal.id}>Edit</Button>
@@ -71,6 +72,7 @@ class GoalList extends Component {
                             <th >Target Date</th>
                             <th >Target Amount</th>
                             <th >Amount Saved</th>
+                            <th>Amount Left</th>
                         </tr>
                         </thead>
                         <tbody>
