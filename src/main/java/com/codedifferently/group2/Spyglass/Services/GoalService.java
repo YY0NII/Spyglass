@@ -21,14 +21,9 @@ public class GoalService {
     }
 
     public Goal save(Goal goal) throws ParseException {
-
-        // Set the progress for each goal
-        if ((goal.getAmountCurrentlySaved() != null) && (goal.getTargetAmount() != null)) {
-            goal.setProgress();
-        }
-
         return goalRepo.save(goal);
     }
+
 
     public List<Goal> findAll() {
         return goalRepo.findAll();
@@ -39,36 +34,6 @@ public class GoalService {
     }
 
     public void updateGoalById(Long id, Goal updatedGoal) {
-        /*Goal goal = goalRepo.findById(id).orElseThrow(()-> new GoalNotFoundException(id));
-
-        //TODO: These will probably mess up if someone enters a Goal with null values
-        if (updatedGoal.getName() != null) {
-            goal.setName(updatedGoal.getName());
-        }
-        if (updatedGoal.getDescription() != null) {
-            goal.setDescription(updatedGoal.getDescription());
-        }
-
-        if (updatedGoal.getTargetAmount() != null) {
-            goal.setTargetAmount(updatedGoal.getTargetAmount());
-        }
-
-        if (updatedGoal.getAmountCurrentlySaved() != null) {
-            goal.setAmountCurrentlySaved(updatedGoal.getAmountCurrentlySaved());
-        }
-
-        if (updatedGoal.getStartDate() != null) {
-            goal.setStartDate(updatedGoal.getStartDate());
-        }
-
-        if (updatedGoal.getTargetDate() != null) {
-            goal.setTargetDate(updatedGoal.getTargetDate());
-        }*/
-
-
-        // Set the progress for each goal
-        updatedGoal.setProgress();
-
         goalRepo.save(updatedGoal);
     }
 
