@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import AppNavbar from './AppNavbar';
 
-class GoalEdit extends Component {
+class GoalAdd extends Component {
 
     emptyItem = {
         
@@ -46,8 +46,8 @@ class GoalEdit extends Component {
         event.preventDefault();
         const {item} = this.state;
     
-        await fetch('/Goals/' + item.id, {
-            method: 'PUT',
+        await fetch('/Goals', {
+            method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -59,7 +59,7 @@ class GoalEdit extends Component {
 
     render() {
         const {item} = this.state;
-        const title = <h2>{'Edit Goal'}</h2>;
+        const title = <h2>{'Add Goal'}</h2>;
     
         return <div>
             <AppNavbar/>
@@ -106,4 +106,4 @@ class GoalEdit extends Component {
         </div>
     }
 }
-export default withRouter(GoalEdit);
+export default withRouter(GoalAdd);

@@ -1,15 +1,21 @@
 package com.codedifferently.group2.Spyglass.Controllers;
 
 import com.codedifferently.group2.Spyglass.Models.Goal;
+import com.codedifferently.group2.Spyglass.Payload.UploadFileResponse;
+import com.codedifferently.group2.Spyglass.Services.FileStorageService;
 import com.codedifferently.group2.Spyglass.Services.GoalService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/SpyglassAPI")
 public class GoalController {
     GoalService goalService;
@@ -19,8 +25,11 @@ public class GoalController {
         this.goalService = goalService;
     }
 
+    @Autowired
+    private FileStorageService fileStorageService;
+
     @PostMapping("/Goals")
-    public ResponseEntity<String> createGoal(@RequestBody Goal goal){
+    public ResponseEntity<String> createGoal(@RequestBody Goal goal) throws ParseException {
         goalService.save(goal);
         return new ResponseEntity<>("8080/SpyglassAPI/Goal" + goal.getId(), HttpStatus.CREATED);
     }
@@ -39,6 +48,22 @@ public class GoalController {
     public ResponseEntity<String> updateGoalById(@PathVariable Long id, @RequestBody Goal goal){
         goalService.updateGoalById(id, goal);
         return new ResponseEntity<>("8080/SpyglassAPI/Goals" + goal.getId(), HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping(value = "/Goals/newImage/{id}")
+    public UploadFileResponse uploadFile(@PathVariable Long id, @RequestParam("file") MultipartFile file) throws ParseException {
+        String fileName = fileStorageService.storeFile(file);
+
+        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path("/downloadFile/")
+                .path(fileName)
+                .toUriString();
+        Goal goal = getGoalById(id);
+        goal.setImage(fileDownloadUri);
+        goalService.save(goal);
+        System.out.println(fileDownloadUri);
+        return new UploadFileResponse(fileName, fileDownloadUri,
+                file.getContentType(), file.getSize());
     }
 
     @DeleteMapping("/Goals/{id}")

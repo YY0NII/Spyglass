@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, ButtonGroup, Container, Table } from 'reactstrap';
 import AppNavbar from './AppNavbar';
+import './GoalList.css'
 import { Link } from 'react-router-dom';
 
 class GoalList extends Component {
@@ -38,20 +39,41 @@ class GoalList extends Component {
         }
     
         const goalList = goals.map(goal => {
-            return <tr key={goal.id}>
-                <td style={{whiteSpace: 'nowrap'}}>{goal.name}</td>
-                <td>{goal.description}</td>
-                <td>{goal.startDate}</td>
-                <td>{goal.targetDate}</td>
-                <td>${goal.targetAmount}</td>
-                <td>${goal.amountCurrentlySaved}</td>
-                <td>${goal.progress}</td>
-                <td>
-                    <ButtonGroup>
-                        <Button size="sm" color="primary" tag={Link} to={"/Goals/" + goal.id}>Edit</Button>
-                        <Button size="sm" color="danger" onClick={() => this.remove(goal.id)}>Delete</Button>
-                    </ButtonGroup>
+            return <tr class="table-row" key={goal.id}>
+                <td style={{whiteSpace: 'nowrap'}}>
+                    <h4>Name</h4>
+                    <p><b>{goal.name}</b></p>
+                    <h4>Description</h4>
+                    <p><b>{goal.description}</b></p>
+
+                    <img src={goal.image} width='150px' heigh='150px'></img>
+                    <p>
+                        <ButtonGroup>
+                            <Button  color="primary" tag={Link} to={"/Goals/" + goal.id}>Update Goal</Button>
+                            <Button  color="danger" onClick={() => this.remove(goal.id)}>Delete</Button>
+                            <Button  color="warning" tag={Link} to={"/Goals/newImage/" + goal.id}>Add image</Button>
+                        </ButtonGroup>
+                    </p>
                 </td>
+                
+                <td>
+                    <h4>Start Date</h4>
+                    <p><b>{goal.startDate.slice(0, 10)}</b></p>
+                    <h4>Target Date</h4>
+                    <p><b>{goal.targetDate.slice(0, 10)}</b></p>
+                </td>
+                <td>
+                    <h4>Target Amount</h4>
+                    <p style={{color: 'green'}}><b>${goal.targetAmount}</b></p>
+                    <h4>Currently Saved</h4>
+                    <p style={{color: 'green'}}><b>${goal.amountCurrentlySaved}</b></p>
+                    <h4>Current Progress</h4>
+                    <p style={{color: 'red'}}><b>${goal.progress} left to go</b></p>
+                </td>
+                <td>
+                    
+                </td>
+  
             </tr>
         });
     
@@ -63,16 +85,14 @@ class GoalList extends Component {
                         <Button color="success" tag={Link} to="/Goals/new">Add Goals</Button>
                     </div>
                     <h3>Goals</h3>
-                    <Table className="mt-4">
+                    <Table style={{
+                    width: '700px',
+                    height: '800px'}} className="mt-4">
                         <thead>
                         <tr>
-                            <th >Name</th>
-                            <th >Description</th>
-                            <th >Start Date</th>
-                            <th >Target Date</th>
-                            <th >Target Amount</th>
-                            <th >Amount Saved</th>
-                            <th>Amount Left</th>
+                            <th>Goals</th>
+                            <th>Dates</th>
+                            <th>Funds</th>
                         </tr>
                         </thead>
                         <tbody>

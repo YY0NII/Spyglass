@@ -6,6 +6,9 @@ import com.codedifferently.group2.Spyglass.Repos.GoalRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -17,8 +20,13 @@ public class GoalService {
         this.goalRepo = goalRepo;
     }
 
-    public Goal save(Goal goal) {
-        goal.setProgress();
+    public Goal save(Goal goal) throws ParseException {
+
+        // Set the progress for each goal
+        if ((goal.getAmountCurrentlySaved() != null) && (goal.getTargetAmount() != null)) {
+            goal.setProgress();
+        }
+
         return goalRepo.save(goal);
     }
 
@@ -31,17 +39,37 @@ public class GoalService {
     }
 
     public void updateGoalById(Long id, Goal updatedGoal) {
-        Goal goal = goalRepo.findById(id).orElseThrow(()-> new GoalNotFoundException(id));
+        /*Goal goal = goalRepo.findById(id).orElseThrow(()-> new GoalNotFoundException(id));
 
         //TODO: These will probably mess up if someone enters a Goal with null values
-        goal.setName(updatedGoal.getName());
-        goal.setDescription(updatedGoal.getDescription());
-        goal.setImage(updatedGoal.getImage());
-        goal.setTargetAmount(updatedGoal.getTargetAmount());
-        goal.setAmountCurrentlySaved(updatedGoal.getAmountCurrentlySaved());
-        goal.setTargetDate(updatedGoal.getTargetDate());
+        if (updatedGoal.getName() != null) {
+            goal.setName(updatedGoal.getName());
+        }
+        if (updatedGoal.getDescription() != null) {
+            goal.setDescription(updatedGoal.getDescription());
+        }
 
-        goalRepo.save(goal);
+        if (updatedGoal.getTargetAmount() != null) {
+            goal.setTargetAmount(updatedGoal.getTargetAmount());
+        }
+
+        if (updatedGoal.getAmountCurrentlySaved() != null) {
+            goal.setAmountCurrentlySaved(updatedGoal.getAmountCurrentlySaved());
+        }
+
+        if (updatedGoal.getStartDate() != null) {
+            goal.setStartDate(updatedGoal.getStartDate());
+        }
+
+        if (updatedGoal.getTargetDate() != null) {
+            goal.setTargetDate(updatedGoal.getTargetDate());
+        }*/
+
+
+        // Set the progress for each goal
+        updatedGoal.setProgress();
+
+        goalRepo.save(updatedGoal);
     }
 
     public void deleteById(Long id) {
