@@ -17,6 +17,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
+/**
+ *
+ */
 @Service
 public class FileStorageService {
 
@@ -34,6 +37,10 @@ public class FileStorageService {
         }
     }
 
+    /**
+     * @param file
+     * @return
+     */
     public String storeFile(MultipartFile file) {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -54,6 +61,10 @@ public class FileStorageService {
         }
     }
 
+    /**
+     * @param fileName
+     * @return
+     */
     public Resource loadFileAsResource(String fileName) {
         try {
             Path filePath = this.fileStorageLocation.resolve(fileName).normalize();

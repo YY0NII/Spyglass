@@ -68,7 +68,7 @@ class GoalList extends Component {
                     <h4>Currently Saved</h4>
                     <p style={{color: 'green'}}><b>${goal.amountCurrentlySaved}</b></p>
                     <h4>Current Progress</h4>
-                    <p style={{color: 'red'}}><b>${goal.progress} left to go</b></p>
+                    <p style={{color: 'red'}}><b>${goal.targetAmount - goal.amountCurrentlySaved} left to go</b></p>
                 </td>
                 <td>
                     

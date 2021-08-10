@@ -11,6 +11,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * The GoalService Class serves as a middle man between our repo and our controller
+ * <p>
+ * The GoalService handles contacting the repo on behalf of our controller to save, find, delete and update Goals.
+ */
 @Service
 public class GoalService {
     GoalRepo goalRepo;
@@ -20,58 +25,50 @@ public class GoalService {
         this.goalRepo = goalRepo;
     }
 
-    public Goal save(Goal goal) throws ParseException {
-
-        // Set the progress for each goal
-        if ((goal.getAmountCurrentlySaved() != null) && (goal.getTargetAmount() != null)) {
-            goal.setProgress();
-        }
-
-        return goalRepo.save(goal);
+    /**
+     * Calls the save method of goalRepo to save a goal
+     *
+     * @param goal goal object created by a user
+     */
+    public void save(Goal goal) {
+        goalRepo.save(goal);
     }
 
+
+    /**
+     * returns a list of Goal objects by calling the findAll method on goalRepo
+     *
+     * @return a list of Goal Objects representing the users tracked goals
+     */
     public List<Goal> findAll() {
         return goalRepo.findAll();
     }
 
+    /**
+     * returns a specified Goal object via its id and a call to goalRepos findbyid method
+     *
+     * @param id the id associate with a specific Goal obj
+     * @return the Goal object associated with the passed in id
+     */
     public Goal findById(Long id) {
         return goalRepo.findById(id).orElseThrow(()-> new GoalNotFoundException(id));
     }
 
+    /**
+     * Saves an updated version of a specified goal to the repo
+     *
+     * @param id id of a specified Goal
+     * @param updatedGoal a goal object that represents the updated version of a specific goal
+     */
     public void updateGoalById(Long id, Goal updatedGoal) {
-        /*Goal goal = goalRepo.findById(id).orElseThrow(()-> new GoalNotFoundException(id));
-
-        //TODO: These will probably mess up if someone enters a Goal with null values
-        if (updatedGoal.getName() != null) {
-            goal.setName(updatedGoal.getName());
-        }
-        if (updatedGoal.getDescription() != null) {
-            goal.setDescription(updatedGoal.getDescription());
-        }
-
-        if (updatedGoal.getTargetAmount() != null) {
-            goal.setTargetAmount(updatedGoal.getTargetAmount());
-        }
-
-        if (updatedGoal.getAmountCurrentlySaved() != null) {
-            goal.setAmountCurrentlySaved(updatedGoal.getAmountCurrentlySaved());
-        }
-
-        if (updatedGoal.getStartDate() != null) {
-            goal.setStartDate(updatedGoal.getStartDate());
-        }
-
-        if (updatedGoal.getTargetDate() != null) {
-            goal.setTargetDate(updatedGoal.getTargetDate());
-        }*/
-
-
-        // Set the progress for each goal
-        updatedGoal.setProgress();
-
         goalRepo.save(updatedGoal);
     }
 
+    /**
+     * Deletes a Goal specified by an id
+     *
+     * @param id id associate with a Goal Obj
+     */
     public void deleteById(Long id) {
         goalRepo.deleteById(id);
     }
