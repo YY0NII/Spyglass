@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.xml.stream.events.Comment;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -25,6 +27,10 @@ public class GoalController {
         this.goalService = goalService;
     }
 
+
+
+
+
     @Autowired
     private FileStorageService fileStorageService;
 
@@ -33,6 +39,7 @@ public class GoalController {
         goalService.save(goal);
         return new ResponseEntity<>("8080/SpyglassAPI/Goal" + goal.getId(), HttpStatus.CREATED);
     }
+
 
     @GetMapping("/Goals")
     public List<Goal> getAllGoals(){
@@ -49,6 +56,7 @@ public class GoalController {
         goalService.updateGoalById(id, goal);
         return new ResponseEntity<>("8080/SpyglassAPI/Goals" + goal.getId(), HttpStatus.ACCEPTED);
     }
+
 
     @PostMapping(value = "/Goals/newImage/{id}")
     public UploadFileResponse uploadFile(@PathVariable Long id, @RequestParam("file") MultipartFile file) throws ParseException {
@@ -71,5 +79,6 @@ public class GoalController {
         goalService.deleteById(id);
         return new ResponseEntity<>("8080/SpyglassAPI/Goals" + id, HttpStatus.ACCEPTED);
     }
+
 
 }

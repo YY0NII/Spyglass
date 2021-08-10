@@ -2,11 +2,9 @@ package com.codedifferently.group2.Spyglass.Models;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Goal {
@@ -23,6 +21,18 @@ public class Goal {
     private Double targetAmount;
     private Double amountCurrentlySaved;
     private Double progress;
+
+    // Established a one to many relationship with the comments.
+    @OneToMany(mappedBy = "goal")
+    private List<Comment> comments;
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void  setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 
     public Long getId() {
         return id;
@@ -112,6 +122,7 @@ public class Goal {
                 ", targetAmount=" + targetAmount +
                 ", amountCurrentlySaved=" + amountCurrentlySaved +
                 ", progress=" + progress +
+                ", comments=" + comments +
                 '}';
     }
 }
