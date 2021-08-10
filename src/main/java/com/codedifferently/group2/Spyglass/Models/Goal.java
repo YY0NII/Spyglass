@@ -24,6 +24,15 @@ public class Goal {
     private Double amountCurrentlySaved;
     private Double progress;
 
+
+
+    public Goal(String name, String description, Double targetAmount, Double amountCurrentlySaved) {
+        this.name = name;
+        this.description = description;
+        this.targetAmount = targetAmount;
+        this.amountCurrentlySaved = amountCurrentlySaved;
+    }
+
     public Long getId() {
         return id;
     }
