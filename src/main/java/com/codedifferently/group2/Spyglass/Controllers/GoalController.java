@@ -39,10 +39,9 @@ public class GoalController {
      *
      * @param goal goal object created by user
      * @return ResponseEntity
-     * @throws ParseException
      */
     @PostMapping("/Goals")
-    public ResponseEntity<String> createGoal(@RequestBody Goal goal) throws ParseException {
+    public ResponseEntity<String> createGoal(@RequestBody Goal goal) {
         goalService.save(goal);
         return new ResponseEntity<>("8080/SpyglassAPI/Goal" + goal.getId(), HttpStatus.CREATED);
     }

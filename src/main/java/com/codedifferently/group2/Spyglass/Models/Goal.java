@@ -154,6 +154,15 @@ public class Goal {
     }
 
     /**
+     * Getter for the currently saved amount
+     *
+     * @return a double representing the amount currently saved
+     */
+    public Double getAmountCurrentlySaved() {
+        return amountCurrentlySaved;
+    }
+
+    /**
      * Setter for the currently saved amount of a goal
      *
      * @param amountCurrentlySaved the currently saved amount stored in a goal
