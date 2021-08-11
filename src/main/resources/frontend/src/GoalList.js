@@ -52,6 +52,7 @@ class GoalList extends Component {
                             <Button  color="primary" tag={Link} to={"/Goals/" + goal.id}>Update Goal</Button>
                             <Button  color="danger" onClick={() => this.remove(goal.id)}>Delete</Button>
                             <Button  color="warning" tag={Link} to={"/Goals/newImage/" + goal.id}>Add image</Button>
+                            <Button  color="primary" tag={Link} to={"/Goals/comments" + goal.id}>Comment</Button>
                         </ButtonGroup>
                     </p>
                 </td>

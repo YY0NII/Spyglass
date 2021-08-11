@@ -17,7 +17,7 @@ class App extends Component {
             <Route path='/Goals/new' component={GoalAdd}/>
             <Route path='/Goals/newImage/:id' component={ImageAdd}/>
             <Route path='/Goals/:id' component={GoalEdit}/>
-            
+            <Route path='/Goals/comments/:id' component={ImageAdd}/>
           </Switch>
         </Router>
     )
