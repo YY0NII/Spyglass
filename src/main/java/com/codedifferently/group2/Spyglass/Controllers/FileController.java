@@ -19,6 +19,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
+/**
+ * The File Controller Class serves to map the end points of our API.
+ * <p>
+ * The File Controller maps endpoints to their functional counterpart on our backend
+ */
 @RestController
 public class FileController {
 
@@ -27,6 +33,10 @@ public class FileController {
     @Autowired
     private FileStorageService fileStorageService;
 
+    /**
+     * @param file
+     * @return
+     */
     @PostMapping("/uploadFile")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
         String fileName = fileStorageService.storeFile(file);
@@ -40,6 +50,10 @@ public class FileController {
                 file.getContentType(), file.getSize());
     }
 
+    /**
+     * @param files
+     * @return
+     */
     @PostMapping("/uploadMultipleFiles")
     public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
         return Arrays.asList(files)
@@ -48,6 +62,11 @@ public class FileController {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * @param fileName
+     * @param request
+     * @return
+     */
     @GetMapping("/downloadFile/{fileName:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
         // Load file as Resource
