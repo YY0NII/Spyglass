@@ -39,7 +39,7 @@ public class FileStorageService {
 
     /**
      * @param file
-     * @return
+     * @return the name of the uploaded file
      */
     public String storeFile(MultipartFile file) {
         // Normalize file name
@@ -63,7 +63,7 @@ public class FileStorageService {
 
     /**
      * @param fileName
-     * @return
+     * @return the file as a resource
      */
     public Resource loadFileAsResource(String fileName) {
         try {

@@ -30,8 +30,8 @@ public class GoalService {
      *
      * @param goal goal object created by a user
      */
-    public void save(Goal goal) {
-        goalRepo.save(goal);
+    public Goal save(Goal goal) {
+        return goalRepo.save(goal);
     }
 
 
@@ -60,8 +60,8 @@ public class GoalService {
      * @param id id of a specified Goal
      * @param updatedGoal a goal object that represents the updated version of a specific goal
      */
-    public void updateGoalById(Long id, Goal updatedGoal) {
-        goalRepo.save(updatedGoal);
+    public Goal updateGoalById(Long id, Goal updatedGoal) {
+        return goalRepo.save(updatedGoal);
     }
 
     /**

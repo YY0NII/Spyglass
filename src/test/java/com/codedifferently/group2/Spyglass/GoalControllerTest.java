@@ -1,6 +1,5 @@
 package com.codedifferently.group2.Spyglass;
 
-import com.codedifferently.group2.Spyglass.Controllers.GoalController;
 import com.codedifferently.group2.Spyglass.Models.Goal;
 import com.codedifferently.group2.Spyglass.Repos.GoalRepo;
 import com.codedifferently.group2.Spyglass.Services.FileStorageService;
@@ -14,29 +13,26 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.*;
-import static org.assertj.core.api.Assertions.assertThat;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(GoalController.class)
+@WebMvcTest
 public class GoalControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
     @MockBean
-    private GoalRepo goalRepo;
+    private GoalRepo repo;
 
     @MockBean
     private GoalService goalService;
@@ -45,44 +41,104 @@ public class GoalControllerTest {
     private FileStorageService fileStorageService;
 
     @Test
-    public void testCreateGoal() throws Exception {
-        String url = "/SpyglassAPI/Goals";
-        mockMvc.perform(MockMvcRequestBuilders.post(url).content(asJsonString((new Goal("Hiking", "Mountains", 7000D, 50D))))
+    void testCreateGoal() throws Exception {
+
+        // Declare a new goal object
+        Goal newGoal = new Goal(1L,"Hiking", "Mountains", 700D, 10D);
+
+        // Use mockMvc to perform a post request with the newGoal as its content
+        mockMvc.perform(post("/SpyglassAPI/Goals").content(new ObjectMapper().writeValueAsString(newGoal))
+                // Set the content type to JSON
                 .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)).andExpect(status().isCreated());
+                // The post request can only accept JSON content
+                .accept(MediaType.APPLICATION_JSON))
+                // Expect 201 HTTP response to be returned
+                .andExpect(status().isCreated())
+                // Also, expect a string to be returned
+                .andExpect(content().string("8080/SpyglassAPI/Goal1")).andReturn();
     }
 
     @Test
     void testGetAllGoals() throws Exception {
-        List<Goal> listGoals = new ArrayList<>();
-        listGoals.add(new Goal("Hiking", "Mountains", 7000D, 50D));
-        listGoals.add(new Goal("Ski Trip", "Snow", 7000D, 5D));
+        // Declare a new goal list
+        List<Goal> goalList = new ArrayList<>();
+        goalList.add(new Goal(1L,"Hiking", "Mountains", 700D, 10D));
+        goalList.add(new Goal(2L,"Snow Boarding", "Ice", 700D, 10D));
 
-        Mockito.when(goalService.findAll()).thenReturn(listGoals);
+        // Use Mockito to mock the goalService's findAll() method with the goalList returned
+        Mockito.when(goalService.findAll()).thenReturn(goalList);
 
-        String url= "/SpyglassAPI/Goals";
+        // Set url template
+        String url = "/SpyglassAPI/Goals";
 
-        MvcResult mvcResult = mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn();
+        // Declare a new mvcResult
+        // Use mockMvc to perform a get request to url and expect a 200 HTTP response returned
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(url)).andExpect(status().isOk()).andReturn();
 
+        // Set the actualJsonResponse to the response content of previously made get request as a string
         String actualJsonResponse = mvcResult.getResponse().getContentAsString();
         System.out.println(actualJsonResponse);
 
-        String expectedJsonResponse = objectMapper.writeValueAsString(listGoals);
+        // Set the goalList to a string formatted as JSON
+        String expectedJsonResponse = new ObjectMapper().writeValueAsString(goalList);
 
+        // Test the actualJsonResponse and expectedJsonResponse
+        assertThat(actualJsonResponse).isEqualToIgnoringWhitespace(expectedJsonResponse);
+
+    }
+
+    @Test
+    void testGetGoalById() throws Exception {
+        // Declare a new goal object
+        Goal newGoal = new Goal(1L,"Hiking", "Mountains", 700D, 10D);
+
+        // Use Mockito to mock the goalService's findById() method with the newGoal returned
+        Mockito.when(goalService.findById(1L)).thenReturn(newGoal);
+
+        // Set url template
+        String url = "/SpyglassAPI/Goals/1";
+
+        // Declare a new mvcResult
+        // Use mockMvc to perform a get request to url and expect a 200 HTTP response returned
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get(url)).andExpect(status().isOk()).andReturn();
+
+        // Set the actualJsonResponse to the response content of previously made get request as a string
+        String actualJsonResponse = mvcResult.getResponse().getContentAsString();
+        System.out.println(actualJsonResponse);
+
+        // Set the newGoal to a string formatted as JSON
+        String expectedJsonResponse = new ObjectMapper().writeValueAsString(newGoal);
+
+        // Test the actualJsonResponse and expectedJsonResponse
         assertThat(actualJsonResponse).isEqualToIgnoringWhitespace(expectedJsonResponse);
     }
 
     @Test
-    public void testGetGoalById() throws Exception {
-        Goal thisGoal = new Goal("Hiking", "Mountains", 7000D, 50D);
+    void testUpdateGoalById() throws Exception {
 
+        // Declare a new goal object
+        Goal newGoal = new Goal(1L,"Hiking", "Mountains", 700D, 10D);
+
+        // Use mockMvc to perform a put request with the newGoal as its content
+        mockMvc.perform(put("/SpyglassAPI/Goals/1").content(new ObjectMapper().writeValueAsString(newGoal))
+                // Set the content type to JSON
+                .contentType(MediaType.APPLICATION_JSON)
+                // The put request can only accept JSON content
+                .accept(MediaType.APPLICATION_JSON))
+                // Expect 200 HTTP response to be returned
+                .andExpect(content().string("8080/SpyglassAPI/Goals1")).andReturn();
     }
 
-    public static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    @Test
+    void testDeleteGoalById() throws Exception {
+
+        // Use mockMvc to perform a delete request
+        mockMvc.perform( MockMvcRequestBuilders
+                .delete("/SpyglassAPI/Goals/1")
+                // The delete request can only accept JSON content
+                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                // Expect 202 HTTP response to be returned
+                .andExpect(status().isAccepted());
     }
 }
