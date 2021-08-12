@@ -35,7 +35,7 @@ public class FileController {
 
     /**
      * @param file
-     * @return
+     * @return an UploadedFileResponse providing details on the uploaded file
      */
     @PostMapping("/uploadFile")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
@@ -52,7 +52,7 @@ public class FileController {
 
     /**
      * @param files
-     * @return
+     * @return the files uploaded as a list
      */
     @PostMapping("/uploadMultipleFiles")
     public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
@@ -65,7 +65,7 @@ public class FileController {
     /**
      * @param fileName
      * @param request
-     * @return
+     * @return a response entity detailing the name of the downloaded file
      */
     @GetMapping("/downloadFile/{fileName:.+}")
     public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {

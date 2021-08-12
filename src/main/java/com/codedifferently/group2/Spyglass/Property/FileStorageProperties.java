@@ -10,7 +10,7 @@ public class FileStorageProperties {
     private String uploadDir;
 
     /**
-     * @return
+     * @return a string of the upload directory (goal-photos)
      */
     public String getUploadDir() {
         return uploadDir;

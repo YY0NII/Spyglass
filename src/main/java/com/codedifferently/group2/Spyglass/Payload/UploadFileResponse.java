@@ -17,7 +17,7 @@ public class UploadFileResponse {
     }
 
     /**
-     * @return
+     * @return string of file name
      */
     public String getFileName() {
         return fileName;
@@ -31,7 +31,7 @@ public class UploadFileResponse {
     }
 
     /**
-     * @return
+     * @return a uri in the form of a string to download the file
      */
     public String getFileDownloadUri() {
         return fileDownloadUri;
@@ -45,7 +45,7 @@ public class UploadFileResponse {
     }
 
     /**
-     * @return
+     * @return a string detailing the file type
      */
     public String getFileType() {
         return fileType;
@@ -59,7 +59,7 @@ public class UploadFileResponse {
     }
 
     /**
-     * @return
+     * @return the file size in a long data type
      */
     public long getSize() {
         return size;

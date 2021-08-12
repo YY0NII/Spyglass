@@ -30,6 +30,34 @@ public class Goal {
     private Double targetAmount;
     private Double amountCurrentlySaved;
 
+    public Goal() {
+    }
+
+    public Goal(String name, String description, String image, Date startDate, Date targetDate, Double targetAmount, Double amountCurrentlySaved) {
+        this.name = name;
+        this.description = description;
+        this.image = image;
+        this.startDate = startDate;
+        this.targetDate = targetDate;
+        this.targetAmount = targetAmount;
+        this.amountCurrentlySaved = amountCurrentlySaved;
+    }
+
+    public Goal(Long id, String name, String description, Double targetAmount, Double amountCurrentlySaved) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.targetAmount = targetAmount;
+        this.amountCurrentlySaved = amountCurrentlySaved;
+    }
+
+    public Goal(String name, String description, Double targetAmount, Double amountCurrentlySaved) {
+        this.name = name;
+        this.description = description;
+        this.targetAmount = targetAmount;
+        this.amountCurrentlySaved = amountCurrentlySaved;
+    }
+
     // Established a one to many relationship with the comments.
     @OneToMany(mappedBy = "goal")
     private List<Comment> comments;
