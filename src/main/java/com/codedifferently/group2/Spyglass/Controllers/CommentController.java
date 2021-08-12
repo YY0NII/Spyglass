@@ -15,7 +15,7 @@ import java.net.URL;
 import java.util.List;
 
 @RestController
-@RequestMapping("/comment")
+@RequestMapping("/SpyglassAPI")
 public class CommentController {
 
     @Autowired
@@ -23,20 +23,20 @@ public class CommentController {
 
     @Autowired
     GoalService goalService;
-
+// list created to get all comments
     @CrossOrigin
-    @PostMapping("")
+    @GetMapping("/comments")
     public List<Comment> getAllComments() {
         return commentService.findAllComments();
     }
-
+// adding an comment
     @CrossOrigin
     @PostMapping("/{id}")
     public ResponseEntity<String> addComment(@PathVariable Long id, @RequestBody Comment comment) throws URISyntaxException {
         commentService.saveComment(id, comment);
         return new ResponseEntity<>("/comment/" + comment.getId(), HttpStatus.ACCEPTED);
     }
-
+// removing a comment
     @CrossOrigin
     @DeleteMapping("/{id}")
     public ResponseEntity<String> removeComment(@PathVariable Long id, @RequestBody Comment comment) throws URISyntaxException {

@@ -33,7 +33,7 @@ public class CommentService {
             // update the comment count
 //        thisGoal.setCommentCount(thisGoal.getCommentCount() + 1);
 
-            // Add thr comment
+            // Add the comment
             findGoal.getComments().add(comment);
 
             // saving the changes

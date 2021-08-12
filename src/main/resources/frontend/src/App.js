@@ -6,6 +6,7 @@ import GoalList from './GoalList';
 import GoalEdit from "./GoalEdit";
 import GoalAdd from './GoalAdd';
 import ImageAdd from './ImageAdd';
+import CommentList from './CommentList';
 
 class App extends Component {
   render() {
@@ -16,8 +17,9 @@ class App extends Component {
             <Route path='/Goals' exact={true} component={GoalList}/>
             <Route path='/Goals/new' component={GoalAdd}/>
             <Route path='/Goals/newImage/:id' component={ImageAdd}/>
+            <Route path='/comment' component={CommentList}/>
             <Route path='/Goals/:id' component={GoalEdit}/>
-            <Route path='/Goals/comments/:id' component={ImageAdd}/>
+            
           </Switch>
         </Router>
     )
